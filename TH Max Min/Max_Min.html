@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Min_Max</title>
+</head>
+<body>
+<SCRIPT>
+    let array=[];
+    function random() {
+        for (let i=0 ;i<100;i++){
+        array[i]=Math.floor(Math.random()*100+1);
+        }
+        return array;
+    }
+    console.log(random());
+function max() {
+    let max=array[0];
+    for (let i=0; i<array.length;i++){
+        if (max<array[i]){
+            max=array[i];
+        }
+    }
+    return max;
+}
+console.log(max());
+function min() {
+    let min=array[0];
+    for (let i=0;i<array.length;i++){
+        if (min>array[i]){
+            min=array[i];
+        }
+    }
+    return min;
+}
+console.log(min());
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validate Class</title>
+</head>
+<body>
+<script>
+    regExp = /^[ACP][0-9]{4}[GHIKLM]?$/;
+
+    function checkNameClass(str) {
+        if (regExp.test(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    let str='C0719G';
+    console.log(checkNameClass(str));
+    str='C1993A';
+    console.log(checkNameClass(str));
+
+</script>
+</body>
+</html>

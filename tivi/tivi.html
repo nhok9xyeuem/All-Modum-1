@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>remove tivi</title>
+</head>
+<body>
+<script>
+    function Tivi(chanelcurrent, volumecurrent) {
+        this.status = true;
+        this.chanelCurrent = chanelcurrent;
+        this.volumeCurrent = volumecurrent;
+
+
+        this.changeChannel = function (chanel) {
+            this.chanelCurrent = chanel;
+        };
+
+        this.changeVolume = function (volume) {
+            this.volumeCurrent = volume;
+        };
+
+        this.turnOnOff = function () {
+            this.status=!this.status;
+        };
+
+
+
+    }
+
+
+    function Remote(chanel, volume) {
+        this.chanel = chanel;
+        this.volume = volume;
+        this.tivi = null;
+        this.connect = function (tivi) {
+            this.tivi = tivi;
+
+        };
+
+
+        this.changeChanel = function (chanel) {
+            this.tivi.changeChannel(chanel);
+
+        };
+        this.getChannel = function () {
+            this.changeChanel = chanel;
+            return chanel;
+        };
+
+        this.chanelVolume = function (volume) {
+            this.tivi.changeVolume(volume);
+        };
+        this.getVolume = function () {
+            this.chanelVolume = volume;
+            return volume;
+        };
+        this.turnOnOff = function () {
+           this.tivi.turnOnOff();
+
+        }
+    }
+
+    let tivi = new Tivi(1, 20);
+    let remote = new Remote(5, 23, false);
+    remote.connect(tivi);
+    console.log(tivi.status);
+    console.log(tivi.volumeCurrent);
+    console.log(tivi.chanelCurrent);
+    console.log(remote.getChannel());
+    console.log(remote.getVolume());
+    remote.turnOnOff();
+    console.log(tivi.status);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title </title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>From: </td>
+        <td>
+            <select id="from" onchange="convert()" >
+                <option selected value="meter">Meter</option>
+                <option value="foot">Foot</option>
+            </select>
+        </td>
+        <td><input id="fromValue" type="number" onkeyup="convert()"/></td>
+    </tr>
+    <tr>
+        <td>To: </td>
+        <td>
+            <select id="to" onchange="convert()" >
+                <option selected value="foot">Foot</option>
+                <option value=" meter">Meter</option>
+            </select>
+        </td>
+        <td><input type="number" id="toValue" readonly></td>
+    </tr>
+</table>
+<script>
+    function convertFootMeter(from,to,value) {
+        let result;
+        if(Number.isFinite(value)){
+            if(from.value=="meter" && to.value=="foot"){
+                result=3.279 * value;
+            }else if(from.value== "foot" && to.value=="meter"){
+                result= 0.305 * value
+            }else {
+                result=value;
+            }
+            return result;
+        }else{
+            return -1;
+        }
+    }
+    function convert() {
+        let selectFrom=document.getElementById("from");
+        let selectTo=document.getElementById("to");
+        let value=document.getElementById("fromValue").value;
+        let result= convertFootMeter(selectFrom,selectTo,parseFloat(value));
+        if(result!==-1){
+            result= result.toFixed(3);
+            document.getElementById("toValue").value=result;
+        }else{
+            document.getElementById("toValue").value="";
+        }
+    }
+</script>
+</body>
+</html>

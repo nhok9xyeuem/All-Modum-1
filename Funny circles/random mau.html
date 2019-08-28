@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>random mau</title>
+<!--    random toa do . random mau, -->
+</head>
+<body>
+<canvas id="mycanvas" width="1368" height="768" style="border:5px ; solid-color: crimson"></canvas>
+<script>
+    function Circle(x, y, radius) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius
+    }
+
+    function getRandomHex() {
+        return Math.floor(Math.random()* 255);
+    }
+
+    function getRandomColor() {
+        let red = getRandomHex();
+        let green = getRandomHex();
+        let blue = getRandomHex();
+        return "rgb(" + red + "," + blue + ',' + green + ")";
+    }
+    function createCircle() {
+        let ctx = document.getElementById('mycanvas').getContext('2d');
+        let radius = Math.floor(Math.random() * 200);
+        let color = getRandomColor();
+        let x=Math.random()*window.innerWidth;
+        let y=Math.random()*window.innerHeight;
+        let cricle = new Circle(x, y,radius);
+        ctx.beginPath();
+        ctx.arc(cricle.x, cricle.y, cricle.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+
+    setInterval(createCircle,120);
+
+</script>
+</body>
+</html>

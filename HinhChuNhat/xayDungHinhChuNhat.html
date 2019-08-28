@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hinh Chu Nhat</title>
+</head>
+<body>
+<canvas id="mycanvas" width="1368" height="768" style="border:5px ; solid-color: crimson"></canvas>
+
+<script>
+    let Rectangle = function (x, y, chieudai, chieurong) {
+        this.x = x;
+        this.y = y;
+        this.chieudai = chieudai;
+        this.chieurong = chieurong;
+
+        this.getDienTich = function () {
+            return this.chieudai * this.chieurong;
+        };
+        this.getChuVi = function () {
+            return (2 * this.chieudai + this.chieurong * 2);
+        };
+    };
+
+    function getRandomColor() {
+        return Math.floor(Math.random() * 255);
+    }
+
+    function getColor() {
+        let red = getRandomColor();
+        let green = getRandomColor();
+        let blue = getRandomColor();
+        return "rgb(" + red + "," + blue + ',' + green + ")";
+    }
+
+    function hinhChuNhat() {
+        let ctx = document.getElementById('mycanvas').getContext('2d');
+        let x = Math.random() * window.innerWidth;
+        let y = Math.random() * window.innerHeight;
+        let chieudai=parseInt(prompt('moi ban nhap chieu dai'));
+        let chieurong=parseInt(prompt('moi ban nhap chieu rong '));
+        let color = getColor();
+        let chunhat = new Rectangle(x, y, chieudai,chieurong);
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, chunhat.chieudai, chunhat.chieurong,);
+        document.write('chieu dai hinh chu nhat la :' + chunhat.chieudai+'<br>');
+        document.write('chieu rong hinh chua nhat la :' + chunhat.chieurong+'<br>');
+        document.write('chu vi hinh chu nhat la:' + chunhat.getChuVi()+'<br>');
+        document.write('dien tich hinh chu nhat la '+ chunhat.getDienTich()+'<br>');
+    }
+
+    hinhChuNhat();
+
+</script>
+</body>
+</html>

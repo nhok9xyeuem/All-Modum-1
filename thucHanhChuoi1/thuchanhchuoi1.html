@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiem Tra Ky Tu Dau Tien Co La chu Hoa</title>
+</head>
+<body>
+<script>
+
+
+    function isFirstLetterUpperCase(str) {
+
+        regexp = /^[A-Z]/;
+        if (regexp.test(str)) {
+            alert('chuoi co ky tu dau la in hoa')
+        } else {
+            alert('chuoi co ky tu dau k phai la in hoa')
+        }
+    }
+    isFirstLetterUpperCase('Nguyen van Nam');
+    isFirstLetterUpperCase('NGUYEN VAN NAM');
+    isFirstLetterUpperCase('nguyen van Nam')
+</script>
+</body>
+</html>

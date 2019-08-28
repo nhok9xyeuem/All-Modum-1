@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    regExp = /^[_a-z0-9]{6,}$/;
+
+    function account(str) {
+        if (regExp.test(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    let str='nhok9xyeuem';
+    console.log(account(str));
+</script>
+</body>
+</html>

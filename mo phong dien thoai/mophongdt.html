@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile </title>
+</head>
+<body>
+<script>
+    function Mobile(name){
+        this.name=name;
+        this.battery={energyCurrent: 100, maxEnergy:100};
+        this.composingMessages=[];
+        this.receivedMessages=[];
+        this.sentMessages=[];
+        this.status=true;
+        this.isStatus=function(){
+            return this.status;
+        };
+        this.turnOnOff=function(){
+            this.status=!this.status;
+        };
+        this.consumeBattery=function(){
+            if(this.battery.energyCurrent !==0){
+                this.battery.energyCurrent--;
+            }else{
+                this.turnOnOff();
+            }
+        };
+        this.chargeBattery=function () {
+            if(this.battery.energyCurrent < this.battery.maxEnergy) {
+                this.battery.energyCurrent++;
+            }
+        };
+        this.composeMessage=function(messageText){
+            if(this.status){
+                this.composingMessages.push(messageText);
+                this.consumeBattery();
+            }
+        };
+        this.receiveMessage=function(message){
+            if(this.status && message.trim().length > 0) {
+                this.receivedMessages.push(message);
+                this.consumeBattery();
+            }
+        };
+        this.sendMessage=function(mobile){
+            if(this.status && this.composingMessages.length > 0){
+                let message= this.composingMessages.pop();
+                mobile.receiveMessage(message);
+                this.sentMessages.push(message);
+                this.consumeBattery();
+            }
+        };
+        this.getBattery=function(){
+            return this.battery;
+        };
+        this.viewMessages=function(type){
+            let messText="";
+            if(this.status){
+                this.consumeBattery();
+                if(type=="sent" && this.sentMessages.length > 0){
+                    messText+=this.name + " has the Sent Messages: <br/>";
+                    for(let i =0 ; i< this.sentMessages.length; i++){
+                        messText+="Message " + (i+1) + ":" + this.sentMessages[i] + "<br/>";
+                    }
+                    return messText;
+                }else if(type=="received" && this.receivedMessages.length > 0){
+                    messText+= this.name + " has the Received Messages: <br/>";
+                    for(let i =0; i< this.receivedMessages.length;i++){
+                        messText+="Message " + (i+1) + ":" + this.receivedMessages[i] + "<br/>";
+                    }
+                    return messText;
+                }else{
+                    return null;
+                }
+            }
+        }
+    }
+    let nokia1080=new Mobile("nokia");
+    let iPhone8=new Mobile("Iphone");
+    document.write(nokia1080.name + " energy: "+ nokia1080.getBattery().energyCurrent +"<br/>");
+    document.write(iPhone8.name + " energy: " +iPhone8.getBattery().energyCurrent +"<br/>");
+    nokia1080.composeMessage("Hello" );
+    nokia1080.composeMessage("Hello" );
+    nokia1080.composeMessage("Hello" );
+    nokia1080.composeMessage("Hello" );
+    nokia1080.sendMessage(iPhone8);
+    nokia1080.sendMessage(iPhone8);
+    nokia1080.sendMessage(iPhone8);
+    nokia1080.sendMessage(iPhone8);
+    document.write(nokia1080.viewMessages("sent") +"<br/>");
+    document.write(iPhone8.viewMessages("received") +"<br/>");
+    document.write(nokia1080.name + " energy: " + nokia1080.getBattery().energyCurrent +"<br/>");
+    document.write(iPhone8.name + " energy: " + iPhone8.getBattery().energyCurrent +"<br/>");
+</script>
+</body>
+</html>

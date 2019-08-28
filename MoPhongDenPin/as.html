@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script language="javascript">
+    var is_right, oldcarpos, tmp;
+    var tgl=1;
+    var tothit=0;
+    var scrl=0;
+    var speed=5;
+    var carpos=2;
+    var scrollimages=[ [5,1,1,1,1,5], [5,1,1,1,1,5], [5,1,1,1,1,5], [5,1,1,1,1,5], [5,1,1,1,1,5], [5,1,1,1,1,5] ];
+
+    var images=new Array();
+    for(i=0;i<=7;i++){
+        images[i]=new Image(); images[i].src=("pic"+i+".gif");
+    }
+
+    function movecarandtest(dir){
+        oldcarpos=carpos;
+        carpos=(dir)?Math.max(2,carpos-1):Math.min(5,carpos+1);
+        document.images[('xy'+oldcarpos+'6')].src="pic1.gif";
+        document.images[('xy'+carpos+'6')].src="pic0.gif";
+        if(scrollimages[6][(carpos-1)]!=1){tothit++;}
+    }
+
+    function adjspeed(hi){
+        speed=(hi)?Math.min(5,speed+1):Math.max(1,speed-1);
+    }
+
+    function showkeypress(keypress){
+        is_right=(document.all)?event.keyCode:keypress.which;
+        switch(is_right){
+            case 52: movecarandtest(true);
+                break;
+            case 54: movecarandtest(false);
+                break;
+            case 97: adjspeed(true);
+                break;
+            case 115: adjspeed(false);
+                break;
+            case 113: alert('Game Paused.....\n\nPress OK to Continue.');
+                break;
+        }
+        return false;
+    }
+
+    function init(){
+        document.f.txt.value=0;
+        carpos=2;
+        scrl=0;
+        ctr=0;
+        scrolltimer();
+    }
+
+    function getsideimage(){
+        if(Math.floor(Math.random()*2)==1)return 1;
+        else return 5;
+    }
+
+    function scrolltimer(){
+        scrollimages[6]=scrollimages[5];
+        scrollimages[5]=scrollimages[4];
+        scrollimages[4]=scrollimages[3];
+        scrollimages[3]=scrollimages[2];
+        scrollimages[2]=scrollimages[1];
+        scrollimages[1]=[5,1,1,1,1,5];
+        scrollimages[1][(Math.floor(Math.random()*4)+1)]=(Math.floor(Math.random()*4)+1);
+        scrollimages[1][0]=getsideimage();
+        scrollimages[1][5]=getsideimage();
+        for(r=1;r<=6;r++) for(c=1;c<=6;c++)document.images[('xy'+c+r)].src="pic"+scrollimages[r][c-1]+".gif";
+        (tgl==1)? tgl=0: tgl=1;
+        for(r=1;r<=6;r++)for(c=1;c<=3;c++)document.images[('l'+c+r)].src="pic"+(6+tgl)+".gif";
+        document.images[('xy'+carpos+'6')].src="pic0.gif";
+        if(scrollimages[6][(carpos-1)]!=1)tothit++;
+        document.f.txt.value=tothit;
+        setTimeout('scrolltimer()',(speed*100));
+    }
+
+    function startpage(){
+        if(document.layers)document.captureEvents(Event.KEYPRESS);
+        document.onkeypress=showkeypress;
+        alert('Make sure NumLock is on\nand CapsLock is off.\n\nThen click OK when you are ready...\n\n4 and 6 to turn.\nS to speed up.\nA to slow down.\nQ to pause.');
+        init();
+    }
+
+    window.onload=startpage;
+
+    var t='<table cellpadding="0" cellspacing="0" border="0">';
+    for(r=1;r<=6;r++){
+        t+='<tr>';
+        t+='<td bgcolor="green" align="center" width="45"><img src="pic5.gif" name="xy1'+r+'"></td>';
+        t+='<td bgcolor="black" align="center" width="45"><img src="pic1.gif" width="29" height="60" name="xy2'+r+'"></td>';
+        t+='<td bgcolor="black" width="2"><img src="pic6.gif" name="l1'+r+'"></td>';
+        t+='<td bgcolor="black" align="center" width="45"><img src="pic1.gif" width="29" height="60" name="xy3'+r+'"></td>';
+        t+='<td bgcolor="black" width="2"><img src="pic6.gif" name="l2'+r+'"></td>';
+        t+='<td bgcolor="black" align="center" width="45"><img src="pic1.gif" width="29" height="60" name="xy4'+r+'"></td>';
+        t+='<td bgcolor="black" width="2"><img src="pic6.gif" name="l3'+r+'"></td>';
+        t+='<td bgcolor="black" align="center" width="45"><img src="pic1.gif" width="29" height="60" name="xy5'+r+'"></td>';
+        t+='<td bgcolor="green" align="center" width="45"><img src="pic5.gif" name="xy6'+r+'"></td>';
+        t+='</tr>';
+    }
+    t+='</table><br>Number of Crashes: <form name="f"><input type="text" name="txt" value="0" size="4"></form>';
+    document.write(t);
+</script>
+</body>
+</html>
